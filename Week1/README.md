@@ -50,8 +50,13 @@ Bạn có thể mở từng file lên và bấm nút Run trên VS Code, hoặc c
 python channels_gray.py
 ```
 
+---
 **Hoặc cài đặt toàn bộ thư viện tự động từ file (Khuyên dùng):**
 ```bash
 pip install -r requirements.txt
+```
+Vì người push git này đã sử dụng file requirements.txt để người khác clone về chỉ cần dùng lệnh ở trên đảm bảo đúng phiên bản và đúng cầu hình để Run cho mượt và đúng. Dòng lệnh dưới đây là dòng lệnh dành cho người push lên:
+```bash
+pip freeze > requirements.txt
 ```
 
