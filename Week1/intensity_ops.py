@@ -20,7 +20,7 @@ if gray is None:
     print("Lỗi: Không tìm thấy ảnh! Hãy kiểm tra lại đường dẫn.")
     exit()
 
-# BẪY LỖI KINH ĐIỂN: Nếu lấy ảnh gốc (đang là uint8) trừ trực tiếp đi 50, 
+# Nếu lấy ảnh gốc (đang là uint8) trừ trực tiếp đi 50, 
 # những pixel có giá trị < 50 (ví dụ 10) sẽ bị quay vòng thành 216 thay vì âm.
 # Do đó, BẮT BUỘC phải chuyển ma trận sang dạng số thực (float) trước khi làm toán.
 gray_float = gray.astype(np.float32)
