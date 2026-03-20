@@ -1,26 +1,25 @@
 import cv2
 import numpy as np
-import os  # Thêm thư viện os để tương tác với hệ thống file/thư mục
+import os
 
-# --- TẠO THƯ MỤC CHỨA KẾT QUẢ ---
-output_dir = "output_bai1"
-# Lệnh này sẽ tạo folder 'output_bai1'. 
-# exist_ok=True nghĩa là nếu folder đã có sẵn thì nó bỏ qua, không báo lỗi.
-os.makedirs(output_dir, exist_ok=True) 
+# --- TỰ ĐỘNG TÌM ĐƯỜNG DẪN CHUẨN ---
+current_dir = os.path.dirname(os.path.abspath(__file__))
+output_dir = os.path.join(current_dir, "output_bai1")
+os.makedirs(output_dir, exist_ok=True)
+
+img_path = os.path.join(current_dir, "images", "pic_week1.jpg")
 
 # --- 1. ĐỌC ẢNH VÀ TÁCH KÊNH MÀU ---
-img = cv2.imread('images/pic_week1.jpg')
+img = cv2.imread(img_path)
 
 if img is None:
-    print("Lỗi: Không tìm thấy ảnh! Hãy kiểm tra lại đường dẫn.")
+    print(f"Lỗi: Không tìm thấy ảnh! Hãy kiểm tra lại đường dẫn: {img_path}")
     exit()
 
 B = img[:, :, 0]
 G = img[:, :, 1]
 R = img[:, :, 2]
 
-# Lưu từng kênh ra file vào trong thư mục output_bai1
-# os.path.join sẽ tự động nối tên thư mục và tên file lại với nhau cho chuẩn xác
 cv2.imwrite(os.path.join(output_dir, 'blue.png'), B)
 cv2.imwrite(os.path.join(output_dir, 'green.png'), G)
 cv2.imwrite(os.path.join(output_dir, 'red.png'), R)
@@ -30,12 +29,12 @@ B_f = B.astype(np.float32)
 G_f = G.astype(np.float32)
 R_f = R.astype(np.float32)
 
-# Option 1: Tính trung bình cộng (R + G + B) / 3 (Làm thêm để so sánh)
+# Option 1: Trung bình cộng
 gray_avg = (R_f + G_f + B_f) / 3
 gray_option1 = np.clip(gray_avg, 0, 255).astype(np.uint8)
 cv2.imwrite(os.path.join(output_dir, 'gray_option1.png'), gray_option1)
 
-# Option 2: Tính theo trọng số Luminosity 0.299R + 0.587G + 0.114B (Lưu đúng tên đề yêu cầu)
+# Option 2: Trọng số Luminosity
 gray_lum = 0.299 * R_f + 0.587 * G_f + 0.114 * B_f
 gray_manual = np.clip(gray_lum, 0, 255).astype(np.uint8)
 cv2.imwrite(os.path.join(output_dir, 'gray_manual.png'), gray_manual)
