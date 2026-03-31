@@ -1,62 +1,19 @@
-# Bài tập Xử lý ảnh và Thị giác máy tính - Tuần 1
+# 🎨 Week 1: Digital Image Fundamentals & Color Spaces
 
-Mục tiêu của dự án này là thực hành Python, OpenCV và NumPy để làm việc với ảnh ở mức pixel (tách kênh màu, thay đổi độ sáng/tương phản, thay đổi độ phân giải và tự tạo ảnh bằng toán học).
+Thư mục này chứa các bài tập nhập môn, thiết lập nền tảng vững chắc về cách máy tính biểu diễn và hiểu một bức ảnh kỹ thuật số.
 
-## 📁 Cấu trúc thư mục
+## 🎯 Trọng tâm lý thuyết
+Một bức ảnh kỹ thuật số bản chất là một ma trận 2D (đối với ảnh xám) hoặc 3D (đối với ảnh màu) chứa các giá trị pixel (từ 0 đến 255). 
 
-- `channels_gray.py`: Bài 1 - Tách kênh màu (R, G, B) và chuyển đổi Grayscale.
-- `intensity_ops.py`: Bài 2 - Chỉnh sửa ảnh cơ bản (sáng, tối, tương phản, threshold).
-- `resampling.py`: Bài 3 - Giảm độ phân giải ảnh bằng Slicing ma trận.
-- `synthetic_images.py`: Bài 4 - Tự tạo ảnh (Gradient, Checkerboard, Circle) bằng code.
-- `images/`: Thư mục chứa ảnh gốc đầu vào.
-- `output_bai.../`: Các thư mục tự động sinh ra để chứa ảnh kết quả.
+1. **Hệ màu mặc định của OpenCV (BGR):** Khác với chuẩn RGB thông thường, OpenCV nạp ảnh vào bộ nhớ theo thứ tự Blue - Green - Red. Việc hiểu rõ thứ tự này rất quan trọng khi thực hiện các thao tác tách/gộp kênh.
+2. **Ảnh đa cấp xám (Grayscale):** Chuyển đổi một bức ảnh màu sang thang độ xám không đơn thuần là lấy trung bình cộng 3 kênh, mà thường áp dụng công thức có trọng số dựa trên độ nhạy của mắt người:
+   $$Y = 0.299 \cdot R + 0.587 \cdot G + 0.114 \cdot B$$
 
-## 🛠️ Hướng dẫn cài đặt và chạy Code
-Dự án này sử dụng môi trường ảo (Virtual Environment) để quản lý các thư viện. Vui lòng làm theo các bước sau:
+## 🛠️ Các thao tác thực hành chính
+* **Đọc và Ghi ảnh:** Sử dụng `cv2.imread()` để nạp ma trận ảnh từ ổ cứng và `cv2.imwrite()` để xuất ma trận ra thành file ảnh chuẩn (JPG/PNG).
+* **Tách kênh màu (Splitting):** Dùng `cv2.split()` để tách bức ảnh thành 3 ma trận độc lập, giúp phân tích sự phân bố của từng phổ màu.
+* **Gộp kênh màu (Merging):** Dùng `cv2.merge()` để tái tổ hợp các kênh màu sau khi đã qua chỉnh sửa, hoặc dùng để trực quan hóa một kênh màu duy nhất trong không gian 3D bằng cách triệt tiêu (set bằng 0) các kênh còn lại.
 
-### Bước 1: Tạo môi trường ảo (venv)
-Mở Terminal tại thư mục gốc của dự án và gõ lệnh:
-```bash
-python -m venv myenv
-```
-
-### Bước 2: Kích hoạt môi trường ảo
-Bạn bắt buộc phải kích hoạt môi trường trước khi chạy code hoặc cài đặt thư viện.
-- Trên Window:
-```bash
-.\myenv\Scripts\activate
-```
-- Trên MacOS/Linux:
-```bash
-source myenv/bin/activate
-```
-
-(Dấu hiệu thành công: Có chữ (myenv) xuất hiện màu xanh ở đầu dòng lệnh)
-
-### Bước 3: Cài đặt thư viện
-Đảm bảo môi trường đã được kích hoạt, tiến hành cài đặt OpenCV và NumPy bằng lệnh:
-```bash
-pip install opencv-python numpy
-```
-
-Khi làm việc với ảnh thì nên hiển thị ảnh ra màn hình để xem kết quả. Nên cài thêm matplotlib bằng lệnh:
-```bash
-pip install matplotlib
-```
-
-### Bước 4: Chạy thử kiểm tra
-Bạn có thể mở từng file lên và bấm nút Run trên VS Code, hoặc chạy bằng lệnh trong terminal:
-```bash
-python channels_gray.py
-```
-
----
-**Hoặc cài đặt toàn bộ thư viện tự động từ file (Khuyên dùng):**
-```bash
-pip install -r requirements.txt
-```
-Vì người push git này đã sử dụng file requirements.txt để người khác clone về chỉ cần dùng lệnh ở trên đảm bảo đúng phiên bản và đúng cầu hình để Run cho mượt và đúng. Dòng lệnh dưới đây là dòng lệnh dành cho người push lên:
-```bash
-pip freeze > requirements.txt
-```
-
+## 🚀 Hướng dẫn chạy
+* Nạp các bức ảnh cần test vào thư mục chứa code.
+* Mở terminal và chạy các file `.py` tương ứng. Giao diện GUI của `matplotlib` hoặc `cv2.imshow` sẽ hiển thị kết quả phân tách màu.
